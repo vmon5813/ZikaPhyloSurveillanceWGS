@@ -5,7 +5,7 @@
 
 ### Patristic distance analysis
 
-The following script accepts phylogenetic tree in newick format as input.
+The following script accepts a phylogenetic tree in newick format as input.
 The tips should be labelled in the following format in order to identify which country/group each belongs to:
 
 '>1_Country'
@@ -44,7 +44,7 @@ optional arguments:
   -o OUTFILE, --outfile OUTFILE
                           Specify output filename
 
-This accepts input from the nucFreqAlign.v1.py file
+The varianceDetection.v1.py script accepts input generated from the nucFreqAlign.v1.py file
 
 It outputs two files:
 
