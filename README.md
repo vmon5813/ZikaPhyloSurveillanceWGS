@@ -1,4 +1,4 @@
-# ZikaPhyloSurveillanceWGS
+# Viral Phylogenetic analyses using WGS
 #### Python code for analyses performed in the Zika virus whole genome sequencing manuscript, "Phylogenetic surveillance of travel-related Zika virus infections through whole-genome sequencing methods"
 
 ## Usage
