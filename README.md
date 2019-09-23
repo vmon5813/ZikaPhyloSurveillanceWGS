@@ -3,6 +3,7 @@
 
 ## Usage
 ### Dependencies:
+Python3
 Biopython
 Dendropy
 Numpy
