@@ -72,9 +72,9 @@ group/country? '-t m', or single sequence per group? '-t s'
 The following script outputs a csv file with counts for each nucleotide as well as the shannon diversity at each position.
 The input file is an mpileup file generated in samtools.
 
-python mpileup2snp.py -h
+python mpileup2snp.v1.py -h
 
-usage: mpileup2snp.py [-h] -i MPILEUP -d DEPTH -b STRANDBIAS -r REFERENCELENGTH
+usage: mpileup2snp.v1.py [-h] -i MPILEUP -d DEPTH -b STRANDBIAS -r REFERENCELENGTH
 
 optional arguments:
   -h, --help            show this help message and exit
