@@ -14,7 +14,7 @@ Pandas
 The following script accepts a phylogenetic tree in newick format as input.
 The tips should be labelled in the following format in order to identify which country/group each belongs to:
 
-'>1_Country'
+'uid_Country'
 
 python PatDistSpectrum.v1.py -i infile -o1 outfile1 -o2 outfile2
 
@@ -87,13 +87,8 @@ optional arguments:
   
   -i MPILEUP, --mpileup MPILEUP Specify path to input mpileup file
                         
-  -d DEPTH, --depth DEPTH
-  
-                        Input a depth threshold for variant calling (ex: 0.1 where 0.1 = 10 percent depth). If not important, enter '0.0'
+  -d DEPTH, --depth DEPTH Input a depth threshold for variant calling (ex: 0.1 where 0.1 = 10 percent depth). If not important, enter '0.0'
                         
-  -b STRANDBIAS, --strandbias STRANDBIAS
-  
-                        Input a threshold if strand bias is required (ex 100, where at least a 100 for and rev reads are required). If not important, enter '0'
+  -b STRANDBIAS, --strandbias STRANDBIAS Input a threshold if strand bias is required (ex 100, where at least a 100 for and rev reads are required). If not important, enter '0'
                         
-  -r REFERENCELENGTH, --referenceLength REFERENCELENGTH
-                          Input a reference length, if multiple segments are present, use the longest reference length
+  -r REFERENCELENGTH, --referenceLength REFERENCELENGTH Input a reference length, if multiple segments are present, use the longest reference length
