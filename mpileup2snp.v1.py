@@ -5,21 +5,23 @@ import math
 import argparse
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--mpileup", required = True, help = "Specify path to input mpileup file")
+ap.add_argument("-i", "--mpileup", required = True, help = "Specify input mpileup file")
 ap.add_argument("-d", "--depth", required = True, type = int, help = "Input a depth threshold for variant calling (ex: 0.1 where 0.1 = 10 percent depth). If not important, enter '0.0'")
 ap.add_argument("-b", "--strandbias", required = True, type = int, help = "Input a threshold if strand bias is required (ex 100, where at least a 100 for and rev reads are required). If not important, enter '0'")
 ap.add_argument("-r", "--referenceLength", required = True, type = int, help = "Input a reference length, if multiple segments are present, use the longest reference length")
+ap.add_argument("-o", "--outfile", required = True, help = "Specify out file")
 args = ap.parse_args()
 
 mpileupFile =  (args.mpileup)
 cutoff = (args.depth)
 biasFlag = (args.strandbias)
 refLen = (args.referenceLength)
+outfile = open((args.outfile),'w')
 
 f = open(mpileupFile,"r")
 filehandle = f.readlines()
 
-print ("RefGenome,Pos,Total Depth,Adep,Afor,Arev,Cdep,Cfor,Crev,Gdep,Gfor,Grev,Tdep,Tfor,Trev,Deletions,Insertions,ShannonDiv")
+outfile.write("RefGenome,Pos,Total Depth,Adep,Afor,Arev,Cdep,Cfor,Crev,Gdep,Gfor,Grev,Tdep,Tfor,Trev,Deletions,Insertions,ShannonDiv"+'\n')
 count = 0
 prevcount = 0
 pileupSum = {}
@@ -87,7 +89,7 @@ def pileupParse(refI,listNucs,depth):
 		shannon = str(shannonDiv(depths,refD,depth))
 	depthSum['div'] = shannon
 	return depthSum
-
+print ('Collecting information for each position...')
 for line in filehandle:
 	line = line.replace("^>","").replace("$","").replace("^[","").replace("^]","")
 	linesp = line.split("\t")
@@ -140,7 +142,7 @@ for line in filehandle:
 		pileupSum[refGenome][pos][5] = [len(TInd),len(tInd)]
 		pileupSum[refGenome][pos][6] = len(Del)
 		pileupSum[refGenome][pos][7] = len(Ins)
-
+print ('Writing data to file: '+(args.outfile))
 for r in pileupSum:
 	for p in pileupSum[r]:
 		if len(pileupSum[r][p]) > 0:
@@ -155,8 +157,8 @@ for r in pileupSum:
 				Dels = pileupSum[r][p][6]
 				Ins = pileupSum[r][p][7]
 				depthInfo = pileupParse(refI,[As,Cs,Gs,Ts],depth)
-				print (r+','+str(p)+','+str(depth)+','+','.join(depthInfo['A'])+','+','.join(depthInfo['C'])+','+','.join(depthInfo['G'])+','+','.join(depthInfo['T'])+','+str(Dels)+','+str(Ins)+','+str(depthInfo['div']))
+				outfile.write(r+','+str(p)+','+str(depth)+','+','.join(depthInfo['A'])+','+','.join(depthInfo['C'])+','+','.join(depthInfo['G'])+','+','.join(depthInfo['T'])+','+str(Dels)+','+str(Ins)+','+str(depthInfo['div'])+'\n')
 			else:
-				print (r+','+str(p)+','+','.join(['0']*16))
+				outfile.write(r+','+str(p)+','+','.join(['0']*16)+'\n')
 		else:
-			print (r+','+str(p)+','+','.join(['0']*16))
+			outfile.write(r+','+str(p)+','+','.join(['0']*16)+'\n')
