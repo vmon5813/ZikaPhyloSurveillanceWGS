@@ -89,14 +89,14 @@ posCheck = []
 for c in posInfo:
 	for pos in posInfo[c]:
 		counts = baseDictFormat(posInfo[c][pos])
+		if len(set(bases[pos])) > 1:
+			nucOut.write(c+','+pos+','+','.join(counts)+',Variance'+'\n')
+		else:
+			nucOut.write(c+','+pos+','+','.join(counts)+',NoVariance'+'\n')
 		for b in posInfo[c][pos]:
 			if posInfo[c][pos][b] > 0:
 				uidCheck = pos+'-'+b+'-'+country
 				uid = pos+'-'+b
-				if len(set(bases[pos])) > 1:
-					nucOut.write(c+','+pos+','+','.join(counts)+',Variance'+'\n')
-				else:
-					nucOut.write(c+','+pos+','+','.join(counts)+',NoVariance'+'\n')
 				if not uidCheck in posCheck:
 					if intype == 'm':
 						countryOut.write(pos+','+b+','+str(len(set(countryCounts[uid])))+','+','.join(countryCounter(countryCounts[uid]))+'\n')
